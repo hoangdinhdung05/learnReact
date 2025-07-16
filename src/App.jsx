@@ -6,20 +6,29 @@ import { useState } from "react";
 const App = () => {
 
   const [todoList, setTodoList] = useState([
-    {
-      id: 1,
-      name: "HoangDung"
-    }
+    // {
+    //   id: 1,
+    //   name: "HoangDung"
+    // }
   ]);
 
-  const data = {
-    name: "HoangDung",
-    age: 20
+  const randomIntFromInterval = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min)
   }
+
+  // const data = {
+  //   name: "HoangDung",
+  //   age: 20
+  // }
 
   const addNewTodo = (name) => {
 
-    console.log(`Add new todo in Data ${name}`);
+    const newTodo = {
+      id: randomIntFromInterval(1, 100),
+      name: name
+    }
+
+    setTodoList([...todoList, newTodo]);
 
   };
 
@@ -30,7 +39,7 @@ const App = () => {
         addNewTodo = {addNewTodo} //không có () truyền tham chiếu
       />
       <TodoData 
-        data = {data}
+        // data = {data}
         todoList = {todoList}
       />
     </div>
