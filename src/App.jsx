@@ -4,11 +4,20 @@ import './components/todo/todo.css'
 
 const App = () => {
 
+  const data = {
+    name: "HoangDung",
+    age: 20
+  }
+
   return (  
     <div className="todo-container">
       <div className="todo-title">Todo List</div>
       <TodoNew />
-      <TodoData />
+      <TodoData 
+
+        data = {data}
+
+      />
     </div>
   );
 };
