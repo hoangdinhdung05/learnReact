@@ -11,7 +11,7 @@ const App = () => {
 
   const addNewTodo = (name) => {
 
-    alert(`Add new todo ${name}`);
+    console.log(`Add new todo in Data ${name}`);
 
   };
 
