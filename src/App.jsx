@@ -1,48 +1,68 @@
-import TodoData from "./components/todo/TodoData";
-import TodoNew from "./components/todo/TodoNew";
-import './components/todo/todo.css'
-import { useState } from "react";
+// import TodoData from "./components/todo/TodoData";
+// import TodoNew from "./components/todo/TodoNew";
+// import './components/todo/todo.css'
+// import { useState } from "react";
 
-const App = () => {
+// const App = () => {
 
-  const [todoList, setTodoList] = useState([]);
+//   const [todoList, setTodoList] = useState([]);
 
-  const randomIntFromInterval = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1) + min)
-  }
+//   const randomIntFromInterval = (min, max) => {
+//     return Math.floor(Math.random() * (max - min + 1) + min)
+//   }
 
-  const addNewTodo = (name) => {
-    const newTodo = {
-      id: randomIntFromInterval(1, 100),
-      name: name,
-      completed: false
-    }
-    setTodoList((prevList) => ([...prevList, newTodo]));
-  };
+//   const addNewTodo = (name) => {
+//     const newTodo = {
+//       id: randomIntFromInterval(1, 100),
+//       name: name,
+//       completed: false
+//     }
+//     setTodoList((prevList) => ([...prevList, newTodo]));
+//   };
 
-  const handleDeleteTodo = (id) => {
-    setTodoList((prevList) => prevList.filter(todo => todo.id !== id));
-  };
+//   const handleDeleteTodo = (id) => {
+//     setTodoList((prevList) => prevList.filter(todo => todo.id !== id));
+//   };
 
-  const handleToggleTodo = (id) => {
-    setTodoList((prevList) => prevList
-      .map(todo => todo.id === id ? 
-        {...todo, completed: !todo.completed} : todo));
-  }
+//   const handleToggleTodo = (id) => {
+//     setTodoList((prevList) => prevList
+//       .map(todo => todo.id === id ? 
+//         {...todo, completed: !todo.completed} : todo));
+//   }
 
-  return (  
-    <div className="todo-container">
-      <div className="todo-title">Todo List</div>
-      <TodoNew 
-        addNewTodo = {addNewTodo}
-      />
-      <TodoData 
-        todoList={todoList}
-        onDeleteTodo={handleDeleteTodo}
-        onToggleTodo={handleToggleTodo}
-      />
-    </div>
+//   return (  
+//     <div className="todo-container">
+//       <div className="todo-title">Todo List</div>
+//       <TodoNew 
+//         addNewTodo = {addNewTodo}
+//       />
+//       <TodoData 
+//         todoList={todoList}
+//         onDeleteTodo={handleDeleteTodo}
+//         onToggleTodo={handleToggleTodo}
+//       />
+//     </div>
+//   );
+// };
+
+// export default App
+
+
+
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./AppRoutes";
+import './assets/css/style.css';
+import './assets/css/reset.css';
+import './assets/css/base.css';
+
+
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
-};
+}
 
-export default App
+export default App;

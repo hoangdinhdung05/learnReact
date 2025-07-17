@@ -1,0 +1,30 @@
+:root {
+    --primary: #021a84;
+    --secondary: #FE4C4c;
+    --text: #171717;
+    --gray: #999999;
+    --light-gray: #E5E5E5;
+    --green-text: #2ADA66;
+    --blue-text: #021A84;
+    --red-text: #E5532A;
+    --green-gradient: linear-gradient(0deg, #2ADA66, #2ADA66), 
+    linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
+
+    --purple-gradient: linear-gradient(0deg, #021A84, #021A84),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
+
+    --red-gradient: background: linear-gradient(0deg, #E5532A, #E5532A),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
+}
+
+html, body {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+}
+
+.wrapper {
+    max-width: 1160px;
+    width: 100%;
+    margin-inline: auto;
+}
+
