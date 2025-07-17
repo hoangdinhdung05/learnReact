@@ -1,15 +1,17 @@
 import { useState } from "react";
 
-const TodoNew = (props) => {
+const TodoNew = ({ addNewTodo }) => {
 
     const [ valueInput, setValueInput ] = useState("");
 
-    console.log("Check props", props);
-    const { addNewTodo } = props;
-
     const handleClick = () => {
-        console.log("Click");
+        console.log("Click add new todo");
+        if(valueInput.trim() === "") {
+            console.log("Không được để trống");
+            return;
+        }
         addNewTodo(valueInput);
+        setValueInput(""); // reset
     };
 
     const handleChange = (name) => {
@@ -17,11 +19,15 @@ const TodoNew = (props) => {
         setValueInput(name);
     };
 
-    // addNewTodo("Dung");
     return (
         <div className="todo-new">
-            <input type="text" name="" id="" className="todo-input" placeholder="Add new todo" 
-                onChange={(event) => handleChange(event.target.value)}/>
+            <input 
+                type="text" 
+                value={valueInput} 
+                className="todo-input" 
+                placeholder="Add new todo" 
+                onChange={(event) => handleChange(event.target.value)}
+            />
 
             <button className="todo-btn-add" onClick={handleClick}>Add</button>
 
