@@ -26,6 +26,18 @@ export const AuthProvider = ({ children }) => { // This is a named export, which
         }
     };
 
+    const register = async (userData) => {
+        try {
+
+            const response = await api.post('/auth/register', userData);
+            return response.data;
+
+        } catch (error) {
+            console.error("Registration failed in AuthProvider:", error);
+            throw error;
+        }
+    };
+
     const logout = () => {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('user');
@@ -55,6 +67,7 @@ export const AuthProvider = ({ children }) => { // This is a named export, which
         login,
         logout,
         loading,
+        register
     };
 
     return (

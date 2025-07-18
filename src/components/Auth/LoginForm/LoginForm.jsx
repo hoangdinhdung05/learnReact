@@ -1,3 +1,4 @@
+// src/components/Auth/LoginForm/LoginForm.jsx
 import React from 'react';
 import { Form, Input, Button, Checkbox, Typography, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -5,15 +6,15 @@ import { useAuth } from '../../../hooks/useAuth';
 
 const { Link } = Typography;
 
-const LoginForm = ({ onCloseModal }) => {
-    const { login } = useAuth(); // Lấy hàm login từ AuthContext
+// Thêm prop onSwitchToRegister
+const LoginForm = ({ onCloseModal, onSwitchToRegister }) => { 
+    const { login } = useAuth();
 
     const onFinish = async (values) => {
         try {
-            await login(values.username, values.password); // Gọi hàm login từ context
+            await login(values.username, values.password);
             message.success('Đăng nhập thành công!');
-            onCloseModal(); // Đóng modal
-            // Không cần lưu token ở đây nữa vì đã được xử lý trong AuthContext
+            onCloseModal();
         } catch (error) {
             console.error('Login failed:', error);
             message.error(error.response?.data?.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại.');
@@ -59,7 +60,8 @@ const LoginForm = ({ onCloseModal }) => {
                 <Button type="primary" htmlType="submit" className="login-form-button" block>
                     Đăng nhập
                 </Button>
-                Hoặc <Link href="">đăng ký ngay!</Link>
+                {/* Thêm onClick vào Link "đăng ký ngay!" */}
+                Hoặc <Link onClick={onSwitchToRegister}>đăng ký ngay!</Link>
             </Form.Item>
         </Form>
     );
