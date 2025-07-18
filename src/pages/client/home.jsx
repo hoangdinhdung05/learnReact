@@ -1,7 +1,7 @@
-import Banner from "../../components/client/banner";
-import SearchForm from "../../components/client/searchForm";
-import SuggestList from "../../components/client/suggestList";
-import JobList from "../../components/client/jobList";
+import Banner from "../../components/client/Banner/banner";
+import SearchForm from "../../components/client/content/searchForm";
+import SuggestList from "../../components/client/content/suggestList";
+import JobList from "../../components/client/content/jobList";
 
 const Home = () => {
   return (

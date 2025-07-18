@@ -1,0 +1,272 @@
+/* Form Search */
+.form-search {
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    padding: 12px;
+}
+
+.form-search__input {
+    width: 100%;
+    position: relative;
+    height: 50px;
+    background: #fff;
+    border-radius: 8px;
+    backdrop-filter: blur(2px);
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 16px;
+}
+
+.form-search__input input {
+    width: 100%;
+    height: 100%;
+    padding: 13px 16px 13px 44px;
+    border-color: transparent;
+    border-radius: inherit;
+}
+
+.form-search__option {
+    width: 271px;
+    height: 50px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border-radius: 8px;
+    backdrop-filter: blur(2px);
+    padding: 13px 16px;
+    margin-right: 12px;
+    margin-left: 16px;
+    cursor: pointer;
+}
+
+.form-search__optionLeft {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.form-search__location {
+    color: var(--gray);
+}
+
+.form-search__btn {
+    border: none;
+}
+
+.btn-search {
+    border: none;
+    background: var(--primary);
+    color: #fff;
+    padding: 13px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 149px;
+    height: 44px;
+    padding: 8px 16px 8px 16px;
+}
+/* End: Form Search */
+
+/* List */
+.suggest-wrap {
+    padding: 5px 16px 13px 32px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.suggest-list {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.suggest-item {
+    padding: 4px 8px;
+    background: rgb(0, 0, 0, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    
+}
+/* End: List */
+
+
+/* Job List */
+.job-wrap {
+    margin-top: 77px;
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.job-heading-wrap {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.job-heading__iconWrap {
+    width: 67px;
+    height: 67px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0px 12.3421px 30px rgba(0, 0, 0, 0.08);
+}
+
+.job-heading__icon {
+    width: 52.89px;
+    height: 52.89px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+}
+
+.job-header__link {
+    color: var(--primary);
+    font-size: 18px;
+    font-weight: 500;
+    transition: linear 0.2s;
+}
+
+.job-header__link:hover {
+    text-decoration: underline;
+}
+
+.job-card__list {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 32px;
+    margin-top: 40px;
+}
+
+.job-card__item {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid transparent;
+    transition: linear 0.2s;
+}
+
+.job-card__item:hover {
+    border-color: var(--primary);
+    box-shadow: 0px 12.3421px 30px rgba(0, 0, 0, 0.08);
+}
+
+.job-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.job-card__nameWrap {
+    display: flex;
+    gap: 8px;
+}
+
+.job-card__name {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.job-card__time {
+    padding: 4px 16px;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), #021A84;
+    border-radius: 8px;
+    color: var(--primary);
+}
+
+.job-card__body {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.job-card__body::before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1px;
+    height: 16px;
+    background-color: var(--light-gray);
+}
+
+.job-card__priceText {
+    color: var(--dark-primary);
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.job-card__priceNumber {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 4px;
+}
+
+.job-card__priceNumber span {
+    color: var(--gray);
+    font-weight: 400;
+}
+
+.job-card__footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.job-card__footerLeft {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.job-card__tag {
+    padding: 4px 16px;
+    border-radius: 8px;
+    background-color: var(--light-gray);
+    color: var(--dark-primary);
+    gap: 10px;
+    font-size: 12px;
+    
+}
+
+.job-card__footerRight {
+    border-radius: 8px;
+    padding: 4px 16px;
+    background-color: var(--secondary);
+    color: white;
+    transform: uppercase;
+    font-size: 12px;
+    font-weight: 400;
+    align-items: center;
+}
+
+.job-card__logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 50px;
+}
+
+/* End: Job List */

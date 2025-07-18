@@ -1,0 +1,499 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Container layout */
+.admin__container { /* Đã thêm admin__ */
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    max-width: 1920px;
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f6f8;
+}
+
+/* Sidebar */
+.admin__side-bar { /* Đã thêm admin__ */
+    width: 100px;
+    /* height: 100%; */
+    background-color: #111827;
+    color: #9da4ae;
+    display: flex;
+    flex-direction: column;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    gap: 24px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.admin__side-bar_header { /* Đã thêm admin__ */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.admin__side-bar_header img { /* Đã thêm admin__ */
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #364052;
+    padding: 8px;
+    object-fit: contain;
+}
+
+.admin__side-bar_menu ul { /* Đã thêm admin__ */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.admin__side-bar_menu li { /* Đã thêm admin__ */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
+    margin-bottom: 4px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s ease, color 0.3s ease;
+    font-size: 12px; /* Giảm kích thước font cho text */
+    gap: 4px; /* Khoảng cách nhỏ giữa icon và text */
+    text-align: center; /* Căn giữa text */
+}
+
+/* Style cho icon trong li */
+.admin__side-bar_menu li i { /* Đã thêm admin__ */
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.admin__side-bar_menu li:hover { /* Đã thêm admin__ */
+    background-color: #1f2937;
+    color: #60a5fa;
+}
+
+/* Main area */
+.admin__main { /* Đã thêm admin__ */
+    flex: 1; /* Cho phép main chiếm phần còn lại của không gian */
+    display: flex;
+    flex-direction: column;
+    background-color: #f9fafb;
+    overflow-y: auto; /* Cho phép cuộn nội dung chính */
+}
+
+/* Header */
+.admin__header { /* Đã thêm admin__ */
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 0 24px;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    flex-shrink: 0; /* Ngăn header bị co lại */
+}
+
+.admin__header-left { /* Đã thêm admin__ */
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.admin__header-left input { /* Đã thêm admin__ */
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    outline: none;
+    width: 250px;
+    font-size: 14px;
+}
+
+.admin__header-right { /* Đã thêm admin__ */
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.admin__header-right .admin__icon { /* Đã thêm admin__ */
+    font-size: 20px;
+    color: #6b7280;
+    cursor: pointer;
+}
+
+.admin__header-right img.admin__avatar { /* Đã thêm admin__ */
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Main content */
+.admin__main_content { /* Đã thêm admin__ */
+    flex: 1; /* Cho phép main_content chiếm phần còn lại không gian và cuộn */
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cột cho các card trên cùng */
+    gap: 24px;
+    align-content: start;
+    overflow-y: auto; /* Quan trọng: Cho phép nội dung chính cuộn nếu dài */
+}
+
+.admin__main_content_header { /* Đã thêm admin__ */
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+}
+
+.admin__main_content_header h1 { /* Đã thêm admin__ */
+    font-size: 24px;
+    color: #111827;
+    margin: 0;
+}
+
+.admin__main_content_header button { /* Đã thêm admin__ */
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #374151;
+}
+
+/* Dashboard Cards */
+.admin__dashboard-card { /* Đã thêm admin__ */
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.admin__dashboard-card-header { /* Đã thêm admin__ */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.admin__dashboard-card-header h3 { /* Đã thêm admin__ */
+    font-size: 14px;
+    color: #6b7280;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.admin__dashboard-card-header .admin__icon-box { /* Đã thêm admin__ */
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.admin__icon-box.red { background-color: #ef4444; } /* Đã thêm admin__ */
+.admin__icon-box.teal { background-color: #2dd4bf; } /* Đã thêm admin__ */
+.admin__icon-box.orange { background-color: #f59e0b; } /* Đã thêm admin__ */
+.admin__icon-box.purple { background-color: #8b5cf6; } /* Đã thêm admin__ */
+
+.admin__dashboard-card-value { /* Đã thêm admin__ */
+    font-size: 32px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.admin__dashboard-card-trend { /* Đã thêm admin__ */
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.admin__dashboard-card-trend .admin__percentage { /* Đã thêm admin__ */
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+.admin__dashboard-card-trend .positive { color: #10b981; }
+.admin__dashboard-card-trend .negative { color: #ef4444; }
+
+
+/* Charts and Tables Section */
+.admin__latest-sales-chart { /* Đã thêm admin__ */
+    grid-column: 1 / span 3;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex; /* Cho phép flexbox bên trong để căn giữa nội dung */
+    flex-direction: column;
+}
+
+.admin__latest-sales-chart h3 { /* Đã thêm admin__ */
+    font-size: 18px;
+    color: #111827;
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+.admin__traffic-by-device-chart { /* Đã thêm admin__ */
+    grid-column: 4 / -1;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin__traffic-by-device-chart h3 { /* Đã thêm admin__ */
+    width: 100%;
+    font-size: 18px;
+    color: #111827;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.admin__donut-chart-container { /* Đã thêm admin__ */
+    width: 150px;
+    height: 150px;
+    margin-bottom: 24px;
+    background-color: #eee; /* Placeholder for chart */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.admin__traffic-legend { /* Đã thêm admin__ */
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    font-size: 14px;
+    margin-top: 16px; /* Khoảng cách từ biểu đồ */
+}
+
+.admin__traffic-item { /* Đã thêm admin__ */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #374151;
+}
+
+.admin__traffic-item .admin__color-box { /* Đã thêm admin__ */
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.admin__traffic-item .admin__label { /* Đã thêm admin__ */
+    font-weight: 500;
+}
+
+.admin__traffic-item .admin__percentage { /* Đã thêm admin__ */
+    font-weight: 600;
+    color: #111827;
+}
+
+.admin__traffic-item.desktop .admin__color-box { background-color: #6366f1; } /* Đã thêm admin__ */
+.admin__traffic-item.tablet .admin__color-box { background-color: #f59e0b; } /* Đã thêm admin__ */
+.admin__traffic-item.phone .admin__color-box { background-color: #ef4444; } /* Đã thêm admin__ */
+
+
+.admin__latest-products-card { /* Đã thêm admin__ */
+    grid-column: 1 / span 2;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.admin__latest-products-card h3, .admin__latest-orders-card h3 { /* Đã thêm admin__ */
+    font-size: 18px;
+    color: #111827;
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+.admin__product-item { /* Đã thêm admin__ */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.admin__product-item:last-child { /* Đã thêm admin__ */
+    border-bottom: none;
+}
+
+.admin__product-info { /* Đã thêm admin__ */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin__product-info img { /* Đã thêm admin__ */
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.admin__product-details h4 { /* Đã thêm admin__ */
+    margin: 0;
+    font-size: 14px;
+    color: #111827;
+}
+
+.admin__product-details p { /* Đã thêm admin__ */
+    margin: 0;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.admin__product-actions button { /* Đã thêm admin__ */
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #9ca3af;
+    cursor: pointer;
+}
+
+.admin__view-all-link { /* Đã thêm admin__ */
+    text-align: right;
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+.admin__view-all-link a { /* Đã thêm admin__ */
+    color: #6366f1;
+    text-decoration: none;
+}
+
+.admin__latest-orders-card { /* Đã thêm admin__ */
+    grid-column: 3 / -1;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.admin__orders-table { /* Đã thêm admin__ */
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.admin__orders-table th { /* Đã thêm admin__ */
+    text-align: left;
+    padding: 12px 0;
+    color: #6b7280;
+    font-weight: 500;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.admin__orders-table td { /* Đã thêm admin__ */
+    padding: 12px 0;
+    border-bottom: 1px solid #f3f4f6;
+    color: #374151;
+}
+
+.admin__orders-table tr:last-child td { /* Đã thêm admin__ */
+    border-bottom: none;
+}
+
+.admin__status-badge { /* Đã thêm admin__ */
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.admin__status-badge.pending { background-color: #f59e0b; }
+.admin__status-badge.delivered { background-color: #10b981; }
+.admin__status-badge.refunded { background-color: #ef4444; }
+
+.admin__table-pagination { /* Đã thêm admin__ */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 24px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.admin__table-pagination span { /* Đã thêm admin__ */
+    margin-right: 16px;
+}
+
+.admin__table-pagination button { /* Đã thêm admin__ */
+    background: none;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+    color: #374151;
+    margin-left: 8px;
+}
+
+.admin__table-pagination button:hover:not(:disabled) { /* Đã thêm admin__ */
+    background-color: #f3f4f6;
+}
+
+.admin__table-pagination button:disabled { /* Đã thêm admin__ */
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Footer */
+.admin__main_footer { /* Đã thêm admin__ */
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    font-size: 14px;
+    color: #6b7280;
+    flex-shrink: 0; /* Quan trọng: Ngăn footer bị co lại */
+}
+
+.admin__main_footer p { /* Đã thêm admin__ */
+    margin: 0;
+}
+
+.admin__main_footer a { /* Đã thêm admin__ */
+    color: #6366f1;
+    text-decoration: none;
+}
+
+.admin__main_footer a:hover { /* Đã thêm admin__ */
+    text-decoration: underline;
+}

@@ -1,0 +1,15 @@
+/* Footer */
+.footer {
+    margin-top: 50px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 20px;
+    background-color: var(--primary);
+    color: white;
+    font-size: 14px;
+    font-weight: 400;
+    /* border-radius: 5px; */
+}
+
+/* End Footer */

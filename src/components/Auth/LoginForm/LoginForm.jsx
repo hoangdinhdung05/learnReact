@@ -3,18 +3,27 @@ import React from 'react';
 import { Form, Input, Button, Checkbox, Typography, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useAuth } from '../../../hooks/useAuth'; 
-
+import { useNavigate } from 'react-router-dom';
 const { Link } = Typography;
 
 // Thêm prop onSwitchToRegister
 const LoginForm = ({ onCloseModal, onSwitchToRegister }) => { 
     const { login } = useAuth();
+    const navigate = useNavigate();
 
     const onFinish = async (values) => {
         try {
-            await login(values.username, values.password);
+            const responseData = await login(values.username, values.password);
             message.success('Đăng nhập thành công!');
             onCloseModal();
+
+            // Kiểm tra role và điều hướng
+            if (responseData && responseData.roles && responseData.roles.includes('admin')) {
+                navigate('/admin'); // Điều hướng đến trang admin
+            } else {
+                // Điều hướng đến trang mặc định cho người dùng thường, ví dụ trang chủ
+                navigate('/');
+            }
         } catch (error) {
             console.error('Login failed:', error);
             message.error(error.response?.data?.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại.');

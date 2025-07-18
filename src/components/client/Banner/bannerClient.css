@@ -1,0 +1,14 @@
+/* Banner */
+.banner {
+    width: 100%;
+    /* Loại bỏ max-width để ảnh có thể giãn rộng hết mức */
+    /* height: 721.01px; */ /* Giữ hoặc bỏ tùy theo chiều cao mong muốn */
+}
+
+.banner img {
+    width: 100%;
+    height: auto; /* Thay đổi height thành auto để giữ tỷ lệ khung hình */
+    object-fit: cover; /* Sử dụng 'cover' để ảnh phủ đầy container */
+    display: block; /* Loại bỏ khoảng trắng dưới ảnh do inline-block gây ra */
+}
+/* End: Banner */
