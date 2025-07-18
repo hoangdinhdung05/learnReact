@@ -1,7 +1,4 @@
-import React from 'react';
-import AdminLayout from '../../layouts/AdminLayout';
-
-const HomePage = () => {
+const HomeAdmin = () => {
   return (
     <div>
       <h1>Admin Home Page</h1>
@@ -9,4 +6,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default HomeAdmin;

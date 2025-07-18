@@ -1,5 +1,8 @@
+// src/components/admin/Sidebar.jsx
 import React from "react";
 import logoRecland from "../../assets/images/logo-recland.png";
+import { NavLink } from "react-router-dom"; // <--- Thay thế Link bằng NavLink
+import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 
 const Sidebar = () => {
   return (
@@ -9,14 +12,15 @@ const Sidebar = () => {
       </div>
       <div className="admin__side-bar_menu">
         <ul>
-          <li className="admin__active">
-            <i className="fas fa-home"></i>
-            <span>Home</span>
+          <li className="admin__sidebar-menu-item">
+            <NavLink to="/admin" end> {/* Sử dụng 'end' để chỉ khớp chính xác /admin */}
+              <HomeOutlined /> Trang chủ
+            </NavLink>
           </li>
-          {/* Các mục menu khác sẽ được thêm vào đây */}
-          <li>
-            {/* <i class="fas fa-cog"></i>
-            <span>Settings</span> */}
+          <li className="admin__sidebar-menu-item">
+            <NavLink to="/admin/users">
+              <UserOutlined /> Quản lý Người dùng
+            </NavLink>
           </li>
         </ul>
       </div>

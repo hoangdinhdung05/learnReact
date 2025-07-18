@@ -5,8 +5,9 @@ import Footer from "../components/admin/Footer";
 import { Outlet } from "react-router-dom";
 import "../assets/css/reset.css";
 import "../assets/css/admin/admin.css";
+import HomeAdmin from "../pages/admin/home";
 
-const AdminLayout = () => {
+const AdminLayout = ({ children }) => {
     return (
         <div className="admin__container">
             <Sidebar />
@@ -14,7 +15,7 @@ const AdminLayout = () => {
                 <Header />
 
                 <div className="admin__main_content">
-                <Outlet />
+                    {children}
                 </div>
 
                 <Footer />

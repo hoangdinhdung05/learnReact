@@ -1,0 +1,78 @@
+/* --- User Management Page Container --- */
+.user-management-container {
+    background-color: #ffffff; /* Nền trắng cho container bảng */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Bóng nhẹ */
+    width: 100%; /* Chiếm toàn bộ chiều rộng của admin__main_content */
+    max-width: 1200px; /* Giới hạn chiều rộng tối đa của bảng */
+    /* Nếu bạn muốn căn giữa container trong admin__main_content,
+       đảm bảo admin__main_content có display: flex và justify-content: center */
+}
+
+.user-management-container h1 {
+    font-size: 28px; /* Kích thước tiêu đề */
+    color: #333333;
+    margin-bottom: 24px;
+    text-align: center; /* Căn giữa tiêu đề */
+    font-weight: 600;
+}
+
+/* --- Ant Design Table Customizations --- */
+
+/* Tiêu đề cột */
+.ant-table-thead > tr > th {
+    background-color: #f0f2f5 !important; /* Màu nền cho header bảng */
+    color: #555 !important; /* Màu chữ cho header */
+    font-weight: bold !important;
+    font-size: 14px;
+    text-align: center !important; /* Căn giữa tiêu đề cột */
+}
+
+/* Dòng trong bảng */
+.ant-table-tbody > tr > td {
+    font-size: 14px;
+    color: #333;
+    text-align: center; /* Căn giữa nội dung các ô */
+}
+
+/* Hiệu ứng hover cho dòng */
+.ant-table-tbody > tr:hover > td {
+    background-color: #e6f7ff !important; /* Màu nền khi hover */
+}
+
+/* Các button trong cột "Hành động" */
+.ant-btn {
+    font-size: 13px;
+    padding: 6px 12px;
+    height: auto; /* Điều chỉnh chiều cao tự động */
+}
+
+.ant-btn-primary {
+    background-color: #1890ff !important;
+    border-color: #1890ff !important;
+}
+
+.ant-btn-danger {
+    background-color: #ff4d4f !important;
+    border-color: #ff4d4f !important;
+}
+
+/* Phân trang */
+.ant-pagination {
+    margin-top: 24px;
+    text-align: right; /* Căn phải phân trang */
+}
+
+.ant-pagination-item-active {
+    background-color: #1890ff !important;
+    border-color: #1890ff !important;
+}
+
+.ant-pagination-item-active a {
+    color: #ffffff !important;
+}
+
+.ant-pagination-options .ant-select-selector {
+    border-radius: 4px;
+}

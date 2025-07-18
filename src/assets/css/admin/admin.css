@@ -12,10 +12,9 @@
 
 /* Sidebar */
 .admin__side-bar { /* Đã thêm admin__ */
-    width: 100px;
-    /* height: 100%; */
+    width: 180px;
     background-color: #111827;
-    color: #9da4ae;
+    color: #9da4ae; /* Màu chữ mặc định cho toàn bộ sidebar */
     display: flex;
     flex-direction: column;
     padding-top: 24px;
@@ -24,6 +23,7 @@
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
     align-items: center;
     flex-shrink: 0;
+    /* Có thể thêm height: 100vh; hoặc min-height: 100%; nếu bạn muốn nó chiếm toàn bộ chiều cao */
 }
 
 .admin__side-bar_header { /* Đã thêm admin__ */
@@ -50,33 +50,56 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    flex-grow: 1;
+    flex-grow: 1; /* Cho phép menu chiếm hết không gian còn lại */
     width: 100%;
 }
 
-.admin__side-bar_menu li { /* Đã thêm admin__ */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 12px 0;
-    margin-bottom: 4px;
-    cursor: pointer;
-    border-radius: 8px;
+/* Áp dụng kiểu dáng cho thẻ Link/a bên trong li */
+.admin__side-bar_menu li a {
+    display: flex; /* Sử dụng flexbox cho nội dung bên trong link */
+    flex-direction: column; /* Icon và text xếp chồng lên nhau */
+    align-items: center; /* Căn giữa theo chiều ngang */
+    justify-content: center; /* Căn giữa theo chiều dọc nếu có thêm không gian */
+    padding: 12px 0; /* Khoảng cách bên trong link */
+    width: 100%; /* Đảm bảo link chiếm toàn bộ chiều rộng của li */
+
+    /* Quan trọng: Loại bỏ kiểu dáng mặc định của trình duyệt cho link */
+    color: inherit; /* <--- Kế thừa màu từ thẻ li cha hoặc .admin__side-bar */
+    text-decoration: none; /* <--- Bỏ gạch chân */
+
     transition: background 0.3s ease, color 0.3s ease;
-    font-size: 12px; /* Giảm kích thước font cho text */
-    gap: 4px; /* Khoảng cách nhỏ giữa icon và text */
+    font-size: 12px; /* Kích thước font cho text */
+    gap: 4px; /* Khoảng cách giữa icon và text */
     text-align: center; /* Căn giữa text */
 }
 
-/* Style cho icon trong li */
-.admin__side-bar_menu li i { /* Đã thêm admin__ */
-    font-size: 20px;
-    margin-bottom: 4px;
+/* Kiểu dáng cho icon Ant Design (.anticon) bên trong link */
+.admin__side-bar_menu li a .anticon {
+    font-size: 20px; /* Kích thước icon */
+    /* margin-bottom: 4px; -- Đã dùng gap cho parent flex container */
+    color: inherit; /* <--- Đảm bảo icon kế thừa màu từ thẻ a */
 }
 
-.admin__side-bar_menu li:hover { /* Đã thêm admin__ */
+/* Style cho li khi hover, áp dụng cho cả icon và text qua 'color: inherit' */
+.admin__side-bar_menu li:hover {
     background-color: #1f2937;
-    color: #60a5fa;
+    color: #60a5fa; /* <--- Màu chữ và icon khi hover */
+}
+
+/* Style cho NavLink active (nếu bạn dùng NavLink) */
+.admin__side-bar_menu li .active {
+    color: #38bdf8; /* Màu chữ/icon khi active */
+    font-weight: bold;
+    /* Thêm các style khác nếu muốn */
+}
+
+/* Đảm bảo NavLink.active cũng tuân thủ cấu trúc flexbox */
+.admin__side-bar_menu li .active .anticon {
+    color: inherit; /* Kế thừa màu từ active link */
+}
+
+.admin__side-bar_menu li .active span {
+    color: inherit; /* Kế thừa màu từ active link cho text */
 }
 
 /* Main area */
@@ -496,4 +519,36 @@
 
 .admin__main_footer a:hover { /* Đã thêm admin__ */
     text-decoration: underline;
+}
+
+/* ADMIN LAYOUT */
+.admin__container {
+    display: flex; /* Sử dụng flexbox cho layout chính */
+    min-height: 100vh; /* Đảm bảo container chiếm toàn bộ chiều cao màn hình */
+    background-color: #f4f7f6; /* Màu nền nhẹ cho toàn bộ khu vực admin */
+}
+
+.admin__main {
+    flex-grow: 1; /* Cho phép phần nội dung chính chiếm hết không gian còn lại */
+    display: flex;
+    flex-direction: column;
+    /* padding-left: 100px; */ /* Loại bỏ hoặc điều chỉnh nếu sidebar là fixed */
+    /* Hoặc chỉ đơn giản là để sidebar chiếm chỗ và main content tự đẩy ra */
+}
+
+/* MAIN CONTENT AREA */
+.admin__main_content {
+    flex-grow: 1; /* Đảm bảo nội dung chính chiếm hết không gian */
+    padding: 30px; /* Thêm padding xung quanh nội dung */
+    display: flex; /* Sử dụng flexbox để căn giữa nội dung con */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: flex-start; /* Căn trên đầu theo chiều dọc, thay vì căn giữa hoàn toàn */
+    /* hoặc align-items: center; nếu bạn muốn nội dung bảng luôn ở giữa màn hình */
+    overflow-y: auto; /* Cho phép cuộn nếu nội dung dài hơn màn hình */
+}
+
+/* Đảm bảo Header không chiếm hết chiều rộng nếu bạn có sidebar fixed */
+.admin__header {
+    width: 100%; /* Đảm bảo header chiếm toàn bộ chiều rộng có sẵn của admin__main */
+    /* Các style khác của header */
 }
