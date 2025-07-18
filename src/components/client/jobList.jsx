@@ -1,4 +1,4 @@
-import logo_item from '../assets/images/logo-1.png';
+import logo_item from '../../assets/images/logo-1.png';
 
 
 const JobList = () => {

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import logo from '../assets/images/logo-recland.png';
+import logo from '../../assets/images/logo-recland.png';
 import { LaptopOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
-import AuthModal from '../components/Auth/AuthModal/AuthModal';
-import { useAuth } from '../hooks/useAuth';
+import AuthModal from '../Auth/AuthModal/AuthModal';
+import { useAuth } from '../../hooks/useAuth';
 import { Dropdown, Menu, Avatar } from 'antd'; 
 
 const Header = () => {
