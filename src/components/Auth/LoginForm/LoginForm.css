@@ -1,0 +1,11 @@
+/* LoginForm.module.css */
+.login-form {
+    max-width: 350px; /* Giới hạn chiều rộng của form */
+    margin: 20px auto; /* Căn giữa form trong modal */
+    padding: 20px;
+    /* Bạn có thể thêm border, box-shadow nếu form không nằm trong modal */
+}
+
+.login-form-button {
+    width: 100%; /* Nút đăng nhập chiếm toàn bộ chiều rộng */
+}
