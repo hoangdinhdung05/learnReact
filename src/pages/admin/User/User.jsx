@@ -1,79 +1,577 @@
+// import React, { useEffect, useState } from 'react';
+// import { Table, Button, Space, message, Popconfirm, Modal, Descriptions, Form, Input, Select, Tag } from 'antd';
+// import { PlusOutlined, EditOutlined, DeleteOutlined, EyeOutlined, DownloadOutlined } from '@ant-design/icons';
+// import './userpage.css';
+// import userService from '../../../utils/user.service.api'
+
+// const { Option } = Select;
+
+// const UserPage = () => {
+//   const [users, setUsers] = useState([]);
+//   const [loading, setLoading] = useState(false);
+//   const [pagination, setPagination] = useState({
+//     current: 1,
+//     pageSize: 10,
+//     total: 0,
+//   });
+
+//   // States cho Modal thêm/sửa
+//   const [isAddEditModalVisible, setIsAddEditModalVisible] = useState(false);
+//   const [editingUser, setEditingUser] = useState(null); // Lưu trữ user đang chỉnh sửa
+//   const [form] = Form.useForm(); // Instance form của Ant Design
+
+//   // State cho Modal xem chi tiết
+//   const [isViewModalVisible, setIsViewModalVisible] = useState(false);
+//   const [selectedUser, setSelectedUser] = useState(null);
+
+//   // --- Hàm tải danh sách người dùng ---
+//   const fetchUsers = async (page = pagination.current, pageSize = pagination.pageSize) => {
+//     setLoading(true);
+//     try {
+//       const data = await userService.getUser(page, pageSize);
+//       setUsers(data.content);
+//       setPagination({
+//         ...pagination,
+//         current: page,
+//         pageSize: pageSize,
+//         total: data.totalElements,
+//       });
+//     } catch (error) {
+//       console.error("Failed to fetch users:", error);
+//       message.error('Lỗi khi tải danh sách người dùng.');
+//       // Console error đã được xử lý trong userService
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   // --- useEffect để tải dữ liệu ban đầu và khi phân trang thay đổi ---
+//   useEffect(() => {
+//     fetchUsers(pagination.current, pagination.pageSize);
+//   }, [pagination.current, pagination.pageSize]); // Dependencies
+
+//   // --- Xử lý thay đổi trang/kích thước trang của bảng ---
+//   const handleTableChange = (newPagination) => {
+//     setPagination({
+//       current: newPagination.current,
+//       pageSize: newPagination.pageSize,
+//       total: pagination.total, // giữ nguyên total từ trước
+//     });
+//   };
+
+//   // --- Xử lý thêm người dùng mới ---
+//   const handleAddUser = () => {
+//     setEditingUser(null); // Không có người dùng nào đang được chỉnh sửa
+//     form.resetFields(); // Reset form
+//     setIsAddEditModalVisible(true); // Mở modal
+//   };
+
+//   // --- Xử lý chỉnh sửa người dùng ---
+//   const handleEditUser = async (userId) => {
+//     try {
+//       setLoading(true);
+//       const userToEdit = await userService.getUserById(userId);
+//       setEditingUser(userToEdit); // Đặt user đang chỉnh sửa
+//       form.setFieldsValue({ // Điền dữ liệu vào form
+//         username: userToEdit.username,
+//         email: userToEdit.email,
+//         password: '', // Không điền mật khẩu cũ vào form để bảo mật
+//         firstName: userToEdit.firstName,
+//         lastName: userToEdit.lastName,
+//         roles: userToEdit.roles, // Giả sử roles là mảng string
+//       });
+//       setIsAddEditModalVisible(true); // Mở modal
+//     } catch (error) {
+//       console.error("Failed to fetch user to edit:", error);
+//       message.error('Lỗi khi tải thông tin người dùng để chỉnh sửa.');
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   // --- Xử lý xóa người dùng ---
+//   const handleDeleteUser = async (userId) => {
+//     try {
+//       await userService.deleteUser(userId);
+//       message.success(`Đã xóa người dùng ID: ${userId} thành công!`);
+//       // Tải lại danh sách người dùng sau khi xóa thành công
+//       fetchUsers(pagination.current, pagination.pageSize);
+//     } catch (error) {
+//       message.error('Lỗi khi xóa người dùng.');
+//       console.error("Failed to delete user:", error);
+//     }
+//   };
+
+//   // --- Xử lý submit form thêm/sửa người dùng ---
+//   const handleFormSubmit = async (values) => {
+//     setLoading(true);
+//     try {
+//       if (editingUser) {
+//         // Chỉnh sửa người dùng
+//         const updatedUser = await userService.updateUser(editingUser.id, {
+//           ...values,
+//           // Có thể cần loại bỏ trường password nếu không muốn update nó mỗi lần
+//           // hoặc chỉ gửi nếu nó có giá trị
+//           password: values.password || undefined // Gửi password nếu có, nếu không thì undefined để backend bỏ qua
+//         });
+//         message.success(`Cập nhật người dùng "${updatedUser.username}" thành công!`);
+//       } else {
+//         // Thêm người dùng mới
+//         const newUser = await userService.createUser(values);
+//         message.success(`Thêm người dùng "${newUser.username}" thành công!`);
+//       }
+//       setIsAddEditModalVisible(false); // Đóng modal
+//       fetchUsers(pagination.current, pagination.pageSize); // Tải lại danh sách
+//     } catch (error) {
+//       message.error(`Thất bại: ${error.response?.data?.message || 'Có lỗi xảy ra'}`);
+//       console.error("Form submit error:", error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   // --- Xử lý hủy modal thêm/sửa ---
+//   const handleCancelAddEditModal = () => {
+//     setIsAddEditModalVisible(false);
+//     setEditingUser(null);
+//     form.resetFields();
+//   };
+
+//   // --- Xử lý xem chi tiết người dùng ---
+//   const handleViewDetails = (user) => {
+//     setSelectedUser(user);
+//     setIsViewModalVisible(true);
+//   };
+
+//   // --- Xử lý hủy modal xem chi tiết ---
+//   const handleCancelViewModal = () => {
+//     setIsViewModalVisible(false);
+//     setSelectedUser(null);
+//   };
+
+//   // --- Xử lý xuất dữ liệu người dùng ---
+//   const handleExportUsers = async () => {
+//     setLoading(true);
+//     try {
+//       const blob = await userService.exportUsers();
+//       // Tạo URL từ blob và tạo một liên kết tải xuống
+//       const url = window.URL.createObjectURL(new Blob([blob]));
+//       const link = document.createElement('a');
+//       link.href = url;
+//       link.setAttribute('download', 'users.xlsx'); // Đổi tên file nếu cần
+//       document.body.appendChild(link);
+//       link.click();
+//       link.parentNode.removeChild(link);
+//       message.success('Xuất dữ liệu người dùng thành công!');
+//     } catch (error) {
+//       message.error('Lỗi khi xuất dữ liệu người dùng.');
+//       console.error("Failed to export users:", error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+
+//   // --- Định nghĩa cột cho bảng ---
+//   const columns = [
+//     {
+//       title: 'ID',
+//       dataIndex: 'id', // Đã đổi từ 'userId' sang 'id' theo BE
+//       key: 'id',
+//       sorter: (a, b) => a.id - b.id, // Sắp xếp theo ID
+//     },
+//     {
+//       title: 'Tên đăng nhập',
+//       dataIndex: 'username',
+//       key: 'username',
+//       sorter: (a, b) => a.username.localeCompare(b.username),
+//     },
+//     {
+//       title: 'Họ và tên',
+//       key: 'fullName',
+//       render: (text, record) => `${record.firstName || ''} ${record.lastName || ''}`.trim() || 'N/A',
+//     },
+//     {
+//       title: 'Email',
+//       dataIndex: 'email',
+//       key: 'email',
+//     },
+//     {
+//       title: 'Vai trò',
+//       dataIndex: 'roles',
+//       key: 'roles',
+//       render: (roles) => (
+//         roles && roles.length > 0 ? roles.map(role => (
+//           <Tag color="blue" key={role}>{role.toUpperCase()}</Tag> // Hiển thị dưới dạng Tag
+//         )) : <Tag color="default">NONE</Tag>
+//       ),
+//     },
+//     {
+//       title: 'Hành động',
+//       key: 'actions',
+//       render: (text, record) => (
+//         <Space size="small">
+//           <Button
+//             type="default"
+//             icon={<EyeOutlined />}
+//             onClick={() => handleViewDetails(record)}
+//             title="Xem chi tiết"
+//           >
+//             Xem
+//           </Button>
+//           <Button
+//             type="primary"
+//             icon={<EditOutlined />}
+//             onClick={() => handleEditUser(record.id)} // userId đã đổi thành id
+//             title="Sửa thông tin"
+//           >
+//             Sửa
+//           </Button>
+//           <Popconfirm
+//             title="Bạn có chắc chắn muốn xóa người dùng này?"
+//             onConfirm={() => handleDeleteUser(record.id)} // userId đã đổi thành id
+//             okText="Có"
+//             cancelText="Không"
+//           >
+//             <Button
+//               type="danger"
+//               icon={<DeleteOutlined />}
+//               title="Xóa người dùng"
+//             >
+//               Xóa
+//             </Button>
+//           </Popconfirm>
+//         </Space>
+//       ),
+//     },
+//   ];
+
+//   return (
+//     <div className="user-management-container">
+//       <h1>Quản lý người dùng</h1>
+//       <Space style={{ marginBottom: 16 }}>
+//         <Button type="primary" icon={<PlusOutlined />} onClick={handleAddUser}>
+//           Thêm người dùng mới
+//         </Button>
+//         <Button type="default" icon={<DownloadOutlined />} onClick={handleExportUsers}>
+//           Xuất file Excel
+//         </Button>
+//       </Space>
+
+//       <Table
+//         columns={columns}
+//         dataSource={users}
+//         rowKey="id" 
+//         loading={loading}
+//         pagination={pagination}
+//         onChange={handleTableChange}
+//         scroll={{ x: 'max-content' }}
+//       />
+
+//       {/* Modal for Add/Edit User */}
+//       <Modal
+//         title={editingUser ? "Chỉnh sửa người dùng" : "Thêm người dùng mới"}
+//         open={isAddEditModalVisible}
+//         onCancel={handleCancelAddEditModal}
+//         footer={null} // Tắt footer mặc định để dùng button của Form
+//       >
+//         <Form
+//           form={form}
+//           layout="vertical"
+//           onFinish={handleFormSubmit}
+//           initialValues={{ roles: [] }} // Đặt giá trị mặc định cho roles để tránh lỗi nếu không có
+//         >
+//           <Form.Item
+//             name="username"
+//             label="Tên đăng nhập"
+//             rules={[{ required: true, message: 'Vui lòng nhập tên đăng nhập!' }]}
+//           >
+//             <Input />
+//           </Form.Item>
+//           <Form.Item
+//             name="email"
+//             label="Email"
+//             rules={[{ required: true, message: 'Vui lòng nhập email!' }, { type: 'email', message: 'Email không hợp lệ!' }]}
+//           >
+//             <Input />
+//           </Form.Item>
+//           {!editingUser && ( // Chỉ hiển thị trường password khi thêm mới
+//             <Form.Item
+//               name="password"
+//               label="Mật khẩu"
+//               rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }, { min: 6, message: 'Mật khẩu phải có ít nhất 6 ký tự!' }]}
+//             >
+//               <Input.Password />
+//             </Form.Item>
+//           )}
+//           {editingUser && ( // Gợi ý người dùng có thể thay đổi mật khẩu
+//              <Form.Item
+//               name="password"
+//               label="Mật khẩu (Để trống nếu không muốn thay đổi)"
+//              >
+//               <Input.Password placeholder="Nhập mật khẩu mới nếu muốn thay đổi" />
+//              </Form.Item>
+//           )}
+
+//           <Form.Item name="firstName" label="Tên">
+//             <Input />
+//           </Form.Item>
+//           <Form.Item name="lastName" label="Họ">
+//             <Input />
+//           </Form.Item>
+//           <Form.Item
+//             name="roles"
+//             label="Vai trò"
+//             rules={[{ required: true, message: 'Vui lòng chọn ít nhất một vai trò!' }]}
+//           >
+//             <Select mode="multiple" placeholder="Chọn vai trò">
+//               <Option value="admin">ADMIN</Option>
+//               <Option value="user">USER</Option>
+//               <Option value="guest">GUEST</Option>
+//               {/* Thêm các vai trò khác nếu có */}
+//             </Select>
+//           </Form.Item>
+
+//           <Form.Item>
+//             <Button type="primary" htmlType="submit" loading={loading}>
+//               {editingUser ? "Cập nhật" : "Thêm mới"}
+//             </Button>
+//             <Button onClick={handleCancelAddEditModal} style={{ marginLeft: 8 }}>
+//               Hủy
+//             </Button>
+//           </Form.Item>
+//         </Form>
+//       </Modal>
+
+//       {/* Modal for User Details (Xem chi tiết) */}
+//       <Modal
+//         title="Chi tiết người dùng"
+//         open={isViewModalVisible}
+//         onCancel={handleCancelViewModal}
+//         footer={[
+//           <Button key="back" onClick={handleCancelViewModal}>
+//             Đóng
+//           </Button>,
+//         ]}
+//       >
+//         {selectedUser ? (
+//           <Descriptions bordered column={1}>
+//             <Descriptions.Item label="ID">{selectedUser.id}</Descriptions.Item>
+//             <Descriptions.Item label="Tên đăng nhập">{selectedUser.username}</Descriptions.Item>
+//             <Descriptions.Item label="Họ và tên">{`${selectedUser.firstName || ''} ${selectedUser.lastName || ''}`.trim() || 'N/A'}</Descriptions.Item>
+//             <Descriptions.Item label="Email">{selectedUser.email}</Descriptions.Item>
+//             <Descriptions.Item label="Vai trò">
+//               {selectedUser.roles && selectedUser.roles.length > 0 ? selectedUser.roles.map(role => <Tag color="blue" key={role}>{role.toUpperCase()}</Tag>) : <Tag color="default">NONE</Tag>}
+//             </Descriptions.Item>
+//             {/* Nếu BE của bạn trả về createdAt/updatedAt thì thêm vào đây */}
+//             {/* <Descriptions.Item label="Ngày tạo">{selectedUser.createdAt || 'N/A'}</Descriptions.Item> */}
+//           </Descriptions>
+//         ) : (
+//           <p>Không có thông tin người dùng được chọn.</p>
+//         )}
+//       </Modal>
+//     </div>
+//   );
+// };
+
+// export default UserPage;
+
+
 import React, { useEffect, useState } from 'react';
-import { Table, Button, Space, message, Popconfirm, Modal, Descriptions } from 'antd'; // Import Modal and Descriptions
-import { PlusOutlined, EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons'; // Import EyeOutlined
+import { Table, Button, Space, message, Popconfirm, Modal, Descriptions, Form, Input, Select, Tag } from 'antd';
+import { PlusOutlined, EditOutlined, DeleteOutlined, EyeOutlined, DownloadOutlined } from '@ant-design/icons';
 import './userpage.css';
-// import api from '../../utils/api'; // Tạm thời comment
+import userService from '../../../utils/user.service.api'
+
+const { Option } = Select;
 
 const UserPage = () => {
-  const [users, setUsers] = useState([
-    { userId: 1, username: 'john.doe', email: 'john.doe@example.com', roles: ['user'], fullName: 'John Doe', createdAt: '2023-01-15' },
-    { userId: 2, username: 'jane.admin', email: 'jane.admin@example.com', roles: ['admin', 'user'], fullName: 'Jane Admin', createdAt: '2022-05-20' },
-    { userId: 3, username: 'peter.guest', email: 'peter.guest@example.com', roles: ['guest'], fullName: 'Peter Guest', createdAt: '2024-03-10' },
-  ]);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
-    total: 3,
+    total: 0,
   });
 
-  // State for Modal
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  // States cho Modal thêm/sửa
+  const [isAddEditModalVisible, setIsAddEditModalVisible] = useState(false);
+  const [editingUser, setEditingUser] = useState(null); // Lưu trữ user đang chỉnh sửa
+  const [form] = Form.useForm(); // Instance form của Ant Design
+
+  // State cho Modal xem chi tiết
+  const [isViewModalVisible, setIsViewModalVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  // const fetchUsers = async (page = 1, pageSize = 10) => { ... };
+  // --- Hàm tải danh sách người dùng ---
+  const fetchUsers = async (page = pagination.current, pageSize = pagination.pageSize) => {
+    setLoading(true);
+    try {
+      const data = await userService.getUser(page, pageSize);
+      setUsers(data.content);
+      setPagination({
+        ...pagination,
+        current: page,
+        pageSize: pageSize,
+        total: data.totalElements,
+      });
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+      message.error('Lỗi khi tải danh sách người dùng.');
+      // Console error đã được xử lý trong userService
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // --- useEffect để tải dữ liệu ban đầu và khi phân trang thay đổi ---
   useEffect(() => {
-    // fetchUsers(pagination.current, pagination.pageSize);
-  }, []);
+    fetchUsers(pagination.current, pagination.pageSize);
+  }, [pagination.current, pagination.pageSize]); // Dependencies
 
-  const handleTableChange = (pagination, filters, sorter) => {
-    setPagination(pagination);
+  // --- Xử lý thay đổi trang/kích thước trang của bảng ---
+  const handleTableChange = (newPagination) => {
+    // Corrected line: Update the current page in the pagination state
+    setPagination((prevPagination) => ({
+      ...prevPagination, // Keep existing properties like total
+      current: newPagination.current, // Update the current page
+      pageSize: newPagination.pageSize, // Update the page size
+    }));
+    // No need to call fetchUsers here, as the useEffect will trigger on pagination state change
   };
 
+
+  // --- Xử lý thêm người dùng mới ---
   const handleAddUser = () => {
-    message.info('Chức năng thêm người dùng');
-    // In a real app, you might open a form modal or navigate:
-    // navigate('/admin/users/add');
+    setEditingUser(null); // Không có người dùng nào đang được chỉnh sửa
+    form.resetFields(); // Reset form
+    setIsAddEditModalVisible(true); // Mở modal
   };
 
-  const handleEditUser = (userId) => {
-    message.info(`Chỉnh sửa người dùng ID: ${userId}`);
-    // In a real app, you might open a form modal with user data or navigate:
-    // navigate(`/admin/users/edit/${userId}`);
+  // --- Xử lý chỉnh sửa người dùng ---
+  const handleEditUser = async (userId) => {
+    try {
+      setLoading(true);
+      const userToEdit = await userService.getUserById(userId);
+      setEditingUser(userToEdit); // Đặt user đang chỉnh sửa
+      form.setFieldsValue({ // Điền dữ liệu vào form
+        username: userToEdit.username,
+        email: userToEdit.email,
+        password: '', // Không điền mật khẩu cũ vào form để bảo mật
+        firstName: userToEdit.firstName,
+        lastName: userToEdit.lastName,
+        roles: userToEdit.roles, // Giả sử roles là mảng string
+      });
+      setIsAddEditModalVisible(true); // Mở modal
+    } catch (error) {
+      console.error("Failed to fetch user to edit:", error);
+      message.error('Lỗi khi tải thông tin người dùng để chỉnh sửa.');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleDeleteUser = (userId) => {
-    setUsers(users.filter(user => user.userId !== userId));
-    message.success(`Đã xóa người dùng ID: ${userId}`);
-    setPagination({...pagination, total: pagination.total - 1});
-    // In a real app, you'd call an API here and then refetch users:
-    // await api.delete(`/admin/users/${userId}`);
-    // fetchUsers(pagination.current, pagination.pageSize);
+  // --- Xử lý xóa người dùng ---
+  const handleDeleteUser = async (userId) => {
+    try {
+      await userService.deleteUser(userId);
+      message.success(`Đã xóa người dùng ID: ${userId} thành công!`);
+      // Tải lại danh sách người dùng sau khi xóa thành công
+      fetchUsers(pagination.current, pagination.pageSize);
+    } catch (error) {
+      message.error('Lỗi khi xóa người dùng.');
+      console.error("Failed to delete user:", error);
+    }
   };
 
-  // --- New functions for View Details Modal ---
+  // --- Xử lý submit form thêm/sửa người dùng ---
+  const handleFormSubmit = async (values) => {
+    setLoading(true);
+    try {
+      if (editingUser) {
+        // Chỉnh sửa người dùng
+        const updatedUser = await userService.updateUser(editingUser.id, {
+          ...values,
+          // Có thể cần loại bỏ trường password nếu không muốn update nó mỗi lần
+          // hoặc chỉ gửi nếu nó có giá trị
+          password: values.password || undefined // Gửi password nếu có, nếu không thì undefined để backend bỏ qua
+        });
+        message.success(`Cập nhật người dùng "${updatedUser.username}" thành công!`);
+      } else {
+        // Thêm người dùng mới
+        const newUser = await userService.createUser(values);
+        message.success(`Thêm người dùng "${newUser.username}" thành công!`);
+      }
+      setIsAddEditModalVisible(false); // Đóng modal
+      fetchUsers(pagination.current, pagination.pageSize); // Tải lại danh sách
+    } catch (error) {
+      message.error(`Thất bại: ${error.response?.data?.message || 'Có lỗi xảy ra'}`);
+      console.error("Form submit error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // --- Xử lý hủy modal thêm/sửa ---
+  const handleCancelAddEditModal = () => {
+    setIsAddEditModalVisible(false);
+    setEditingUser(null);
+    form.resetFields();
+  };
+
+  // --- Xử lý xem chi tiết người dùng ---
   const handleViewDetails = (user) => {
     setSelectedUser(user);
-    setIsModalVisible(true);
+    setIsViewModalVisible(true);
   };
 
-  const handleCancelModal = () => {
-    setIsModalVisible(false);
+  // --- Xử lý hủy modal xem chi tiết ---
+  const handleCancelViewModal = () => {
+    setIsViewModalVisible(false);
     setSelectedUser(null);
   };
-  // --- End New functions ---
 
+  // --- Xử lý xuất dữ liệu người dùng ---
+  const handleExportUsers = async () => {
+    setLoading(true);
+    try {
+      const blob = await userService.exportUsers();
+      // Tạo URL từ blob và tạo một liên kết tải xuống
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'users.xlsx'); // Đổi tên file nếu cần
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+      message.success('Xuất dữ liệu người dùng thành công!');
+    } catch (error) {
+      message.error('Lỗi khi xuất dữ liệu người dùng.');
+      console.error("Failed to export users:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  // --- Định nghĩa cột cho bảng ---
   const columns = [
     {
       title: 'ID',
-      dataIndex: 'userId',
-      key: 'userId',
+      dataIndex: 'id', // Đã đổi từ 'userId' sang 'id' theo BE
+      key: 'id',
+      sorter: (a, b) => a.id - b.id, // Sắp xếp theo ID
     },
     {
       title: 'Tên đăng nhập',
       dataIndex: 'username',
       key: 'username',
+      sorter: (a, b) => a.username.localeCompare(b.username),
+    },
+    {
+      title: 'Họ và tên',
+      key: 'fullName',
+      render: (text, record) => `${record.firstName || ''} ${record.lastName || ''}`.trim() || 'N/A',
     },
     {
       title: 'Email',
@@ -84,17 +582,21 @@ const UserPage = () => {
       title: 'Vai trò',
       dataIndex: 'roles',
       key: 'roles',
-      render: (roles) => roles.map(role => role).join(', '),
+      render: (roles) => (
+        roles && roles.length > 0 ? roles.map(role => (
+          <Tag color="blue" key={role}>{role.toUpperCase()}</Tag> // Hiển thị dưới dạng Tag
+        )) : <Tag color="default">NONE</Tag>
+      ),
     },
     {
       title: 'Hành động',
       key: 'actions',
       render: (text, record) => (
-        <Space size="small"> {/* Changed size to 'small' for better button spacing */}
+        <Space size="small">
           <Button
-            type="default" // Default type for "View" button
+            type="default"
             icon={<EyeOutlined />}
-            onClick={() => handleViewDetails(record)} // Call new function
+            onClick={() => handleViewDetails(record)}
             title="Xem chi tiết"
           >
             Xem
@@ -102,14 +604,14 @@ const UserPage = () => {
           <Button
             type="primary"
             icon={<EditOutlined />}
-            onClick={() => handleEditUser(record.userId)}
+            onClick={() => handleEditUser(record.id)} // userId đã đổi thành id
             title="Sửa thông tin"
           >
             Sửa
           </Button>
           <Popconfirm
             title="Bạn có chắc chắn muốn xóa người dùng này?"
-            onConfirm={() => handleDeleteUser(record.userId)}
+            onConfirm={() => handleDeleteUser(record.id)} // userId đã đổi thành id
             okText="Có"
             cancelText="Không"
           >
@@ -129,41 +631,122 @@ const UserPage = () => {
   return (
     <div className="user-management-container">
       <h1>Quản lý người dùng</h1>
-      <Button type="primary" icon={<PlusOutlined />} onClick={handleAddUser} style={{ marginBottom: 16 }}>
-        Thêm người dùng mới
-      </Button>
+      <Space style={{ marginBottom: 16 }}>
+        <Button type="primary" icon={<PlusOutlined />} onClick={handleAddUser}>
+          Thêm người dùng mới
+        </Button>
+        <Button type="default" icon={<DownloadOutlined />} onClick={handleExportUsers}>
+          Xuất file Excel
+        </Button>
+      </Space>
+
       <Table
         columns={columns}
         dataSource={users}
-        rowKey="userId"
+        rowKey="id" 
         loading={loading}
         pagination={pagination}
         onChange={handleTableChange}
         scroll={{ x: 'max-content' }}
       />
 
-      {/* Modal for User Details */}
+      {/* Modal for Add/Edit User */}
+      <Modal
+        title={editingUser ? "Chỉnh sửa người dùng" : "Thêm người dùng mới"}
+        open={isAddEditModalVisible}
+        onCancel={handleCancelAddEditModal}
+        footer={null} // Tắt footer mặc định để dùng button của Form
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleFormSubmit}
+          initialValues={{ roles: [] }} // Đặt giá trị mặc định cho roles để tránh lỗi nếu không có
+        >
+          <Form.Item
+            name="username"
+            label="Tên đăng nhập"
+            rules={[{ required: true, message: 'Vui lòng nhập tên đăng nhập!' }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="email"
+            label="Email"
+            rules={[{ required: true, message: 'Vui lòng nhập email!' }, { type: 'email', message: 'Email không hợp lệ!' }]}
+          >
+            <Input />
+          </Form.Item>
+          {!editingUser && ( // Chỉ hiển thị trường password khi thêm mới
+            <Form.Item
+              name="password"
+              label="Mật khẩu"
+              rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }, { min: 6, message: 'Mật khẩu phải có ít nhất 6 ký tự!' }]}
+            >
+              <Input.Password />
+            </Form.Item>
+          )}
+          {editingUser && ( // Gợi ý người dùng có thể thay đổi mật khẩu
+              <Form.Item
+              name="password"
+              label="Mật khẩu (Để trống nếu không muốn thay đổi)"
+             >
+              <Input.Password placeholder="Nhập mật khẩu mới nếu muốn thay đổi" />
+             </Form.Item>
+          )}
+
+          <Form.Item name="firstName" label="Tên">
+            <Input />
+          </Form.Item>
+          <Form.Item name="lastName" label="Họ">
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="roles"
+            label="Vai trò"
+            rules={[{ required: true, message: 'Vui lòng chọn ít nhất một vai trò!' }]}
+          >
+            <Select mode="multiple" placeholder="Chọn vai trò">
+              <Option value="admin">ADMIN</Option>
+              <Option value="user">USER</Option>
+              <Option value="guest">GUEST</Option>
+              {/* Thêm các vai trò khác nếu có */}
+            </Select>
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" loading={loading}>
+              {editingUser ? "Cập nhật" : "Thêm mới"}
+            </Button>
+            <Button onClick={handleCancelAddEditModal} style={{ marginLeft: 8 }}>
+              Hủy
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+
+      {/* Modal for User Details (Xem chi tiết) */}
       <Modal
         title="Chi tiết người dùng"
-        open={isModalVisible} // Use 'open' prop for Ant Design v5+
-        onCancel={handleCancelModal}
-        footer={[ // Custom footer with a close button
-          <Button key="back" onClick={handleCancelModal}>
+        open={isViewModalVisible}
+        onCancel={handleCancelViewModal}
+        footer={[
+          <Button key="back" onClick={handleCancelViewModal}>
             Đóng
           </Button>,
         ]}
       >
         {selectedUser ? (
-          <Descriptions bordered column={1}> {/* Use Descriptions for a nice key-value display */}
-            <Descriptions.Item label="ID">{selectedUser.userId}</Descriptions.Item>
+          <Descriptions bordered column={1}>
+            <Descriptions.Item label="ID">{selectedUser.id}</Descriptions.Item>
             <Descriptions.Item label="Tên đăng nhập">{selectedUser.username}</Descriptions.Item>
-            <Descriptions.Item label="Họ và tên">{selectedUser.fullName || 'N/A'}</Descriptions.Item>
+            <Descriptions.Item label="Họ và tên">{`${selectedUser.firstName || ''} ${selectedUser.lastName || ''}`.trim() || 'N/A'}</Descriptions.Item>
             <Descriptions.Item label="Email">{selectedUser.email}</Descriptions.Item>
             <Descriptions.Item label="Vai trò">
-              {selectedUser.roles ? selectedUser.roles.map(role => role).join(', ') : 'N/A'}
+              {selectedUser.roles && selectedUser.roles.length > 0 ? selectedUser.roles.map(role => <Tag color="blue" key={role}>{role.toUpperCase()}</Tag>) : <Tag color="default">NONE</Tag>}
             </Descriptions.Item>
-            <Descriptions.Item label="Ngày tạo">{selectedUser.createdAt || 'N/A'}</Descriptions.Item>
-            {/* Thêm các trường thông tin khác nếu có */}
+            {/* Nếu BE của bạn trả về createdAt/updatedAt thì thêm vào đây */}
+            {/* <Descriptions.Item label="Ngày tạo">{selectedUser.createdAt || 'N/A'}</Descriptions.Item> */}
           </Descriptions>
         ) : (
           <p>Không có thông tin người dùng được chọn.</p>
