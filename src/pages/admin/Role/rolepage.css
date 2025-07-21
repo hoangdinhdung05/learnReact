@@ -1,5 +1,5 @@
-/* --- User Management Page Container --- */
-.user-management-container {
+/* --- Role Management Page Container --- */
+.role-management-container {
     background-color: #ffffff; /* Nền trắng cho container bảng */
     padding: 30px 30px 20px 30px;
     border-radius: 8px;
@@ -7,10 +7,10 @@
     width: 100%; /* Chiếm toàn bộ chiều rộng của admin__main_content */
     max-width: 1200px; /* Giới hạn chiều rộng tối đa của bảng */
     /* Nếu bạn muốn căn giữa container trong admin__main_content,
-       đảm bảo admin__main_content có display: flex và justify-content: center */
+        đảm bảo admin__main_content có display: flex và justify-content: center */
 }
 
-.user-management-container h1 {
+.role-management-container h1 {
     font-size: 28px; /* Kích thước tiêu đề */
     color: #333333;
     margin-bottom: 24px;
@@ -77,9 +77,10 @@
     border-radius: 4px;
 }
 
-.user-action-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
+/* This was originally user-action-bar, but changed to role-action-bar for consistency */
+.role-action-bar {
+    display: flex;
+    justify-content: flex-end; /* Changed to flex-end to align the "Add new role" button to the right */
+    align-items: center;
+    margin-bottom: 16px;
 }

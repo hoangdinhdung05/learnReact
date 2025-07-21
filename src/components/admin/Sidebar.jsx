@@ -2,7 +2,7 @@
 import React from "react";
 import logoRecland from "../../assets/images/logo-recland.png";
 import { NavLink } from "react-router-dom"; // <--- Thay thế Link bằng NavLink
-import { HomeOutlined, UserOutlined } from "@ant-design/icons";
+import { HomeOutlined, UserOutlined, TeamOutlined } from "@ant-design/icons";
 
 const Sidebar = () => {
   return (
@@ -20,6 +20,11 @@ const Sidebar = () => {
           <li className="admin__sidebar-menu-item">
             <NavLink to="/admin/users">
               <UserOutlined /> Quản lý Người dùng
+            </NavLink>
+          </li>
+          <li className="admin__sidebar-menu-item">
+            <NavLink to="/admin/roles">
+              <TeamOutlined /> Quản lý Quyền hành
             </NavLink>
           </li>
         </ul>

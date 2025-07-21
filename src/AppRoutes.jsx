@@ -24,6 +24,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import { useAuth } from "./hooks/useAuth"; // Import useAuth hook
 import ProtectedRoute from "./components/ProtectedRoute"; // Import ProtectedRoute component
 import UserPage from "./pages/admin/User/User";
+import RolePage from "./pages/admin/Role/Role";
 
 const AppRoutes = () => {
   const { isAuthenticated, user, loading } = useAuth(); // Lấy trạng thái từ AuthContext
@@ -46,13 +47,13 @@ const AppRoutes = () => {
           <ProtectedRoute
             isAuthenticated={isAuthenticated}
             user={user} 
-            allowedRoles={['admin']}
+            allowedRoles={['ADMIN', 'MANAGER']}
           >
             <AdminLayout>
               <Routes>
                 <Route path="/admin" element={<HomePage />} />
                 <Route path="users" element={<UserPage />} />
-                <Route path="products" element={<div>Admin Product Management Page</div>} />
+                <Route path="roles" element={<RolePage />} />
               </Routes>
             </AdminLayout>
           </ProtectedRoute>
